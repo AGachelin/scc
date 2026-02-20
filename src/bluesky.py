@@ -9,9 +9,9 @@ client.login(creds["BLUESKY_EMAIL"], creds["BLUESKY_PASSWORD"])
 
 all_posts = []
 cursor = None
-n_elements = 10000
+n_elements = 1000
 while True: 
-    response = client.app.bsky.feed.search_posts({"q":"computational social science", "limit":100, "sort": 'latest',"cursor":cursor})
+    response = client.app.bsky.feed.search_posts({"q":"Trump", "limit":100, "sort": 'latest',"cursor":cursor})
     all_posts.extend(response["posts"])
     cursor = response.cursor
     if not cursor:

@@ -1,10 +1,22 @@
+from bertopic import representation
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
+import openai
+from yaml import load, FullLoader
 from bertopic import BERTopic
+from bertopic.representation import OpenAI
+
+URL_API = "https://openrouter.ai/api/v1"
+creds = load(open("./env.yaml"), Loader=FullLoader)
 
 df = pd.read_csv("./data/bsky_posts.csv", index_col=0, parse_dates=True)
+df["text"] = df["text"].astype(str).fillna("")
+docs = df["text"].values.tolist()
 
-topic_model = BERTopic()
-topics, probs = topic_model.fit_transform(df["text"].tolist())
-print(topics)
+openai_client = openai.OpenAI(api_key=creds["OPEN_ROUTER"], base_url=URL_API)
+representation_model = OpenAI(openai_client, model="gpt-4o-mini", chat=True)
+
+topic_model = BERTopic(representation_model=representation_model)
+topics, probs = topic_model.fit_transform(documents=docs)
+
+info = topic_model.get_topic_info()
+print(info)
