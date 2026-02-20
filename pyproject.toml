@@ -8,6 +8,7 @@ dependencies = [
     "atproto>=0.0.65",
     "bertopic>=0.17.4",
     "gliner>=0.2.25",
+    "kaleido>=1.2.0",
     "matplotlib>=3.10.8",
     "nltk>=3.9.2",
     "openai>=2.21.0",
