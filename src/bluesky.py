@@ -1,12 +1,11 @@
-import json
-
 from atproto import Client
 from yaml import load, FullLoader
 import pandas as pd
 
-creds = load(open("../env.yaml"), Loader=FullLoader)
+creds = load(open("./env.yaml"), Loader=FullLoader)
 client = Client()
 client.login(creds["BLUESKY_EMAIL"], creds["BLUESKY_PASSWORD"])
+
 
 all_posts = []
 cursor = None
@@ -28,5 +27,5 @@ df = pd.DataFrame([[post.record.created_at, post.record.text, post.author.did,
                                   "author_display_name", "author_created_at", "reply_count", "like_count", "repost_count"])
 df["created_at"] = pd.to_datetime(df["created_at"], format="mixed", utc=True)
 df.set_index("created_at", inplace=True)
-df.to_csv("../data/bsky_posts.csv")
+df.to_csv("./data/bsky_posts.csv")
 
