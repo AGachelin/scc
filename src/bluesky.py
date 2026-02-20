@@ -38,7 +38,7 @@ if args.s:
     latest_posts = []
     cursor = None
     while True: 
-        response = client.app.bsky.feed.search_posts({"q":args.search, "limit":100, "sort": 'latest',"cursor":cursor})
+        response = client.app.bsky.feed.search_posts({"q":args.search, "limit":100, "sort": 'latest',"cursor":cursor, "lang":"en"})
         latest_posts.extend(response["posts"])
         cursor = response.cursor
         if not cursor:
@@ -61,7 +61,7 @@ if args.t:
     cursor = None
     top_posts = []
     while True: 
-        response = client.app.bsky.feed.search_posts({"q":args.search, "limit":100, "sort": 'top',"cursor":cursor})
+        response = client.app.bsky.feed.search_posts({"q":args.search, "limit":100, "sort": 'top',"cursor":cursor, "lang":"en"})
         top_posts.extend(response["posts"])
         cursor = response.cursor
         if not cursor:
