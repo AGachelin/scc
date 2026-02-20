@@ -17,3 +17,4 @@ data/
 
 #useless python files
 *.py
+- src/*.py
