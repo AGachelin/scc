@@ -1,4 +1,3 @@
-from bertopic import representation
 import pandas as pd
 import openai
 from yaml import load, FullLoader
@@ -12,7 +11,7 @@ os.makedirs("./plots", exist_ok=True)
 URL_API = "https://openrouter.ai/api/v1"
 creds = load(open("./env.yaml"), Loader=FullLoader)
 
-df = pd.read_csv("./data/bsky_posts.csv", index_col=0, parse_dates=True)
+df = pd.read_csv("./data/bsky_latest_posts.csv", index_col=0, parse_dates=True)
 df["text"] = df["text"].astype(str).fillna("")
 docs = df["text"].values.tolist()
 
@@ -26,5 +25,15 @@ topics, probs = topic_model.fit_transform(documents=docs)
 info = topic_model.get_topic_info()
 print(info)
 
-plt_fig = plt.figure()
-fig = topic_model.visualize_hierarchy()
+fig = topic_model.visualize_documents(
+    docs=docs,
+    hide_annotations=True,
+)
+fig.update_layout(
+    title="BERTopic Document Clustering",
+    title_font_size=20,
+    width=1000,
+    height=800,
+    hovermode="closest",
+)
+fig.show()
