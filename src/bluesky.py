@@ -28,9 +28,10 @@ if args.a:
     args.f = True
 
 if args.search is not None:
-    args.s = True
-    args.t = True
-else:
+    if not args.s and not args.t:
+        args.s = True
+        args.t = True
+elif not args.f or args.a:
     args.search = "trump"
     args.s = True
 
