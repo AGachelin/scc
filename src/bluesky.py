@@ -32,6 +32,7 @@ if args.search is not None:
     args.t = True
 else:
     args.search = "trump"
+    args.s = True
 
 if args.s:
     latest_posts = []
