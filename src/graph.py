@@ -3,15 +3,15 @@ import openai
 from yaml import load, FullLoader
 from bertopic import BERTopic
 from bertopic.representation import OpenAI
-import matplotlib.pyplot as plt
 import os
+# ADD [CSS2026] TO EMAIL
 
 os.makedirs("./plots", exist_ok=True)
 
 URL_API = "https://openrouter.ai/api/v1"
 creds = load(open("./env.yaml"), Loader=FullLoader)
 
-df = pd.read_csv("./data/bsky_latest_posts.csv", index_col=0, parse_dates=True)
+df = pd.read_csv("./data/bsky_top_posts.csv", index_col=0, parse_dates=True)
 df["text"] = df["text"].astype(str).fillna("")
 docs = df["text"].values.tolist()
 
